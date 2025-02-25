@@ -16,4 +16,8 @@ export const ROUTER = {
     href: "/registro/",
     display: "Registro",
   },
+  account: {
+    href: "/cuenta/",
+    display: "Cuenta",
+  },
 };
