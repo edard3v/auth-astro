@@ -1,0 +1,12 @@
+---
+import css from "./Register.module.css";
+import Layout from "@layouts/Layout/Layout.astro";
+import { ROUTER } from "@router/router";
+import RegisterForm from "./RegisterForm/RegisterForm";
+---
+
+<Layout title={ROUTER.register.display}>
+  <main class={css.register}>
+    <RegisterForm client:load />
+  </main>
+</Layout>
