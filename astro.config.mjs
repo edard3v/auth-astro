@@ -10,4 +10,9 @@ export default defineConfig({
   integrations: [react(), db(), auth()],
   adapter: netlify(),
   output: "server",
+  vite: {
+    build: {
+      assetsInlineLimit: 0,
+    },
+  },
 });

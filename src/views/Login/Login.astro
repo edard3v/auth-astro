@@ -2,11 +2,42 @@
 import css from "./Login.module.css";
 import Layout from "@layouts/Layout/Layout.astro";
 import { ROUTER } from "@router/router";
-import LoginForm from "./LoginForm/LoginForm";
+import { signIn } from "auth-astro/client";
 ---
 
 <Layout title={ROUTER.login.display}>
   <main class={css.login}>
-    <LoginForm client:load />
+    <form id="login_form">
+      <input type="email" name="email" placeholder="email" />
+      <input type="password" name="password" placeholder="contraseña" />
+      <button>login</button>
+    </form>
   </main>
 </Layout>
+
+<script>
+  import { Dom } from "@utils/dom/dom";
+  import { signIn } from "auth-astro/client";
+
+  document.addEventListener("astro:page-load", () => {
+    const login_form = Dom.select("login_form");
+    login_form?.addEventListener("submit", async (e) => {
+      e.preventDefault();
+      const form = e.target as HTMLFormElement;
+      const formData = new FormData(form);
+
+      const email = formData.get("email");
+      const password = formData.get("password");
+
+      if (!email || !password) return;
+
+      const resp = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+      } as any);
+
+      console.log(resp);
+    });
+  });
+</script>
